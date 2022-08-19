@@ -2,4 +2,23 @@
 
 *{
       font-family: 'Poppins', sans-serif;
+      color:  #ebeef1;
+}
+
+body{
+      background-color: #13171f;
+}
+
+
+.white--image {
+      -webkit-filter: brightness(0) invert(0.6);
+      filter: brightness(0) invert(0.6);
+}
+
+.text-link--blue{
+      color: #58a6ff;
+}
+
+.text-muted--color{
+      color: #8b949e;
 }
