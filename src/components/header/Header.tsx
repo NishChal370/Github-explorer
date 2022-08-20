@@ -19,7 +19,7 @@ function Header() {
                               sm:flex-row sm:gap-4"
                         >
                               <input 
-                                    className="border-[0.1rem] border-[#373d44] rounded mb-4 py-1 px-4  bg-[#13171f] border-transparent focus:outline-none focus:shadow-outline focus:bg-[#484f58]
+                                    className="border-[0.1rem] border-[rgba(240,246,252,0.2)]  rounded mb-4 py-1 px-4  bg-[#13171f] focus:outline-none focus:shadow-outline focus:bg-[#484f58]
                                           sm:m-1"
                                     placeholder="Search repository"
                                     type="text"  

@@ -16,7 +16,7 @@ function Home() {
                               <h3 className="self-center">Sort</h3>
 
                               <select id="cars" name="cars"
-                                    className="w-full border-[0.1rem] border-[#373d44] rounded  px-1  bg-[#13171f] border-transparent focus:outline-none focus:shadow-outline focus:bg-[#484f58]"
+                                    className="w-full border-[0.1rem] border-[rgba(240,246,252,0.2)]  rounded  px-1  bg-[#21262d]  focus:outline-none focus:shadow-outline focus:bg-[#484f58]"
                               >
                                     <option value="best match">Best match</option>
                                     <option value="most starts">Most starts</option>
