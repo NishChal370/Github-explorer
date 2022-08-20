@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { EyeIcon, ForkIcon, GithubRepoIcon, StarIcon } from "../../../assets";
 import { formatDate } from "../../../utils/formatDate";
 import StatusIcon from "./StatusIcon";
@@ -13,6 +14,14 @@ interface RepositoryCardProps{
 
 
 function RepositoryCard({fullName, description, star, watched, forks, updatedDate}: RepositoryCardProps) {
+      const navigate = useNavigate();
+
+      const navigateDetailPage = (fullName: string): void=>{
+            const [owner, repository] = fullName.split('/');
+
+            navigate(`/detail/${owner}/${repository}`);
+      }
+      
 
       return (
             <div className="repository__card  flex flex-col gap-2 border-t-[0.1rem] border-[#30363d] py-5 mt-3 ">
@@ -21,7 +30,7 @@ function RepositoryCard({fullName, description, star, watched, forks, updatedDat
                               src={GithubRepoIcon} alt="repo-icon" 
                         />
                         
-                        <h1 className="text-link--blue">{fullName}</h1>
+                        <h1 className="text-link--blue hover:cursor-pointer" onClick={()=>navigateDetailPage(fullName)}>{fullName}</h1>
                   </header>
 
                   <article className="text-[0.8rem] pl-5 flex flex-col gap-3 tracking-wider">

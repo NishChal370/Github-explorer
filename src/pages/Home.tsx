@@ -21,7 +21,7 @@ function Home() {
       },[filterValue]);
 
       return (
-            <div className="home__container flex flex-col py-2 px-4 
+            <div className="home__wrapper flex flex-col py-4 px-4 mt-[2%] 
                         sm:py-20 sm:w-[60rem]"
             > 
                   <header className="flex flex-col gap-6 
@@ -46,7 +46,7 @@ function Home() {
                               </select>
                               
                         </div>  
-                                              
+                                          
                         <h1 className="text-lg font-semibold tracking-wider">{repositories.length} topic results</h1>
                   </header>
 

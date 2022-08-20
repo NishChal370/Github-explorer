@@ -1,18 +1,18 @@
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Home } from './pages';
 import { Header } from './components';
-import { Route, Routes } from 'react-router-dom';
+import { Detail, Home } from './pages';
 
 function App() {
 
       return (
             <div className="App flex flex-col gap-2 tracking-wider h-full">
                   <Header/>
-
-                  <div className='app-body__container flex flex-row justify-center'>
+                  <div className='home__container flex flex-row justify-center'>
                         <Routes>
-                              <Route path="/detail" element={<div>HEllo detail</div>} />
+                              <Route path="/detail/:owner/:repository" element={<Detail/>} />
                               <Route path="/" element={<Home/>}/>
+                              <Route path="*" element={<Navigate to="/" replace /> }/>
                         </Routes>
                   </div>
             </div>

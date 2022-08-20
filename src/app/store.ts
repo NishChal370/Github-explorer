@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import repositoryReducer from '../features/repositorySlice';
+import userRepositoryReducer from '../features/userRepositorySlice';
 
 const store = configureStore({
       reducer: {
             repositories: repositoryReducer,
+            userRepository: userRepositoryReducer,
       }
 })
 
