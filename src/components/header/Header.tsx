@@ -1,6 +1,25 @@
+import { useState } from "react";
 import { GithubLogoIcon } from "../../assets";
+import { useAppDispatch } from "../../app/hooks";
+import { fetchRepositories } from "../../features/repositorySlice";
+
 
 function Header() {
+      const dispatch = useAppDispatch();
+
+      const [searchedRepository, setSearchedRepository] = useState<string>('');
+
+      const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void=>{
+            const { value } = event.target;
+
+            setSearchedRepository(value);
+      }
+
+      const inputSubmitHandler = (event: React.FormEvent<HTMLFormElement>): void=>{
+            event.preventDefault();
+
+            dispatch(fetchRepositories({searchedRepository}));
+      }
 
       return (
             <header className="header__container bg-[#161b22] text-sm border-b-[0.1rem] border-[#30363d]
@@ -18,12 +37,18 @@ function Header() {
                         <nav className="header__nav flex flex-col align-middle 
                               sm:flex-row sm:gap-4"
                         >
-                              <input 
-                                    className="border-[0.1rem] border-[rgba(240,246,252,0.2)]  rounded mb-4 py-1 px-4  bg-[#13171f] focus:outline-none focus:shadow-outline focus:bg-[#484f58]
-                                          sm:m-1"
-                                    placeholder="Search repository"
-                                    type="text"  
-                              />
+                              <form onSubmit={inputSubmitHandler}>
+                                    <input 
+                                          className=" w-full border-[0.1rem] border-[rgba(240,246,252,0.2)]  rounded mb-4 py-1 px-4  bg-[#13171f] focus:outline-none focus:shadow-outline focus:bg-[#484f58]
+                                                sm:m-1 sm:w-44
+                                                md:w-60"
+                                          placeholder="Search repository"
+                                          type="text"  
+                                          value={searchedRepository}
+                                          onChange={inputChangeHandler}
+                                    />
+                              </form>
+                              
 
                               <span className="flex flex-col align-middle
                                     sm:flex-row sm:gap-2"

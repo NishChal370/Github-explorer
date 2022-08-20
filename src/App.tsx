@@ -1,6 +1,7 @@
 import './App.css';
 import { Home } from './pages';
 import { Header } from './components';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -9,7 +10,10 @@ function App() {
                   <Header/>
 
                   <div className='app-body__container flex flex-row justify-center'>
-                        <Home/>    
+                        <Routes>
+                              <Route path="/detail" element={<div>HEllo detail</div>} />
+                              <Route path="/" element={<Home/>}/>
+                        </Routes>
                   </div>
             </div>
       );

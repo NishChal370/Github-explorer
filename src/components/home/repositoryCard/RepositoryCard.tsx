@@ -1,4 +1,5 @@
 import { EyeIcon, ForkIcon, GithubRepoIcon, StarIcon } from "../../../assets";
+import { formatDate } from "../../../utils/formatDate";
 import StatusIcon from "./StatusIcon";
 
 interface RepositoryCardProps{
@@ -15,7 +16,7 @@ function RepositoryCard({fullName, description, star, watched, forks, updatedDat
 
       return (
             <div className="repository__card  flex flex-col gap-2 border-t-[0.1rem] border-[#30363d] py-5 mt-3 ">
-                  <header className="flex gap-2 align-middle text-center w-[18rem]">
+                  <header className="flex gap-2 align-middle">
                         <img className="w-3 h-4 white--image self-center"
                               src={GithubRepoIcon} alt="repo-icon" 
                         />
@@ -49,7 +50,7 @@ function RepositoryCard({fullName, description, star, watched, forks, updatedDat
                                     />
                               </aside>
                               
-                              <h6 className="text-muted--color">Updated on {updatedDate}</h6>
+                              <h6 className="text-muted--color">Updated on {formatDate(updatedDate)}</h6>
                         </div>
                         
                   </article>
