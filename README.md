@@ -1,43 +1,87 @@
-# Getting Started with Create React App
+<p align="center">
+<img src="https://user-images.githubusercontent.com/73095396/185811032-7e78d53c-9b82-4482-8cab-832539d3812d.png" alt="logo" />
+<h1 align="center" >Github Explorer 0.1.0</h1>
+ 
+<p align="center">
+      This sample project helps to explore open GitHub repositories. Where the user can get the required public repository information, such as the repository name, the number of stars and forks, the updated date, the total number of issues, and the default branches. Additionally, you can use pagination to select the number of items per page and organize the list of the searched repositories according to various criteria.
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Used API: https://api.github.com/**
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- [x] Search public repository 
+- [x] Filter searched repository [options](#Repository_Sort)
+- [x] Home page with pagination
+- [x] Change number of data in page [options](#Per_Page_Option)
+- [x] View repository detail containing Repository Avatar, Total Issue, Default Branch, Owner Name, Repository Name
 
-### `npm start`
+## Used Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+:fire: **React : "^18.2.0"** 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+:fire: **TypeScript : "^4.7.4"** 
 
-### `npm test`
+:fire: **Redux toolkit : "^8.0.2"** 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+:fire: **Tailwind : "^3.1.8"**
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Used Packages / Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+:monkey: **axios : "^0.27.2"**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+:monkey: **react-paginate : "^8.1.3"**
 
-### `npm run eject`
+:monkey: **react-router-dom : "^18.0.6"**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+:monkey: **nanoid : "^4.0.0"**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Installation
+
+**Clone the repo**
+
+```sh
+# Clone the repo
+https://github.com/NishChal370/Github-explorer.git
+```
+
+**Install the app**
+
+```sh
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Run the app
+npm start
+```
+
+
+## Filter Options
+
+### Repository_Sort
+
+1. Best match
+2. Most starts
+3. Fewest stars
+4. Most forks
+5. Fewest forks
+6. Recently updated
+7. Last updated
+
+
+### Per_Page_Option
+
+1. 10 per page
+2. 25 per page
+3. 50 per page
+
 
 ## Learn More
 
