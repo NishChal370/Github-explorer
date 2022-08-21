@@ -67,24 +67,28 @@ npm start
 
 ### Repository_Sort
 
-1. Best match
-2. Most starts
-3. Fewest stars
-4. Most forks
-5. Fewest forks
-6. Recently updated
-7. Last updated
+:diamond_shape_with_a_dot_inside: Best match
+:diamond_shape_with_a_dot_inside: Most starts
+:diamond_shape_with_a_dot_inside: Fewest stars
+:diamond_shape_with_a_dot_inside: Most forks
+:diamond_shape_with_a_dot_inside: Fewest forks
+:diamond_shape_with_a_dot_inside: Recently updated
+:diamond_shape_with_a_dot_inside: Last updated
 
 
 ### Per_Page_Option
 
-1. 10 per page
-2. 25 per page
-3. 50 per page
+:small_red_triangle: 10 per page
+:small_red_triangle: 25 per page
+:small_red_triangle: 50 per page
 
 
-## Learn More
 
+***
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+***
+Thanks [Proshore Nepal Pvt. Ltd](https://proshore.eu/) for assigning the project. :raised_hands:
