@@ -1,9 +1,9 @@
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { GithubLogoIcon } from "../../assets";
 import { useAppDispatch } from "../../app/hooks";
-import { fetchRepositories } from "../../features/repositorySlice";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { GetUrlParamValue } from "../../helper/getUrlParamValue";
+import { fetchRepositories } from "../../features/repositorySlice";
 
 
 function Header() {

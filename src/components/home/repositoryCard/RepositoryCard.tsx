@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { EyeIcon, ForkIcon, GithubRepoIcon, StarIcon } from "../../../assets";
-import { formatDate } from "../../../utils/formatDate";
 import StatusIcon from "./StatusIcon";
+import { formatDate } from "../../../utils/formatDate";
 
 interface RepositoryCardProps{
       fullName: string

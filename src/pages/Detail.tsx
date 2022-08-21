@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { BranchIcon, IssueIcon } from '../assets';
+import Avatar from '../components/detail/Avatar';
 import { MainText, StatusIconText } from '../components';
 import { ErrorMessage, Loading } from '../components/common';
-import Avatar from '../components/detail/Avatar';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchUserRepository } from '../features/userRepositorySlice';
 
 function Detail() {

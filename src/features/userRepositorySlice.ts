@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import { AXIOS, URL_OWNER_REPOSITORY } from "../api/Constent";
+import { AXIOS, URL_OWNER_REPOSITORY } from "../api/Constant";
 
 type UserRepository = {
       [key: string]: any

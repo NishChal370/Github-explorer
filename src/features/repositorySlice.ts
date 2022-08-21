@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import { AXIOS, URL_SEARCH_REPOSITORY } from "../api/Constent";
 import { getTotalPage } from "../utils/getTotalPage";
+import { AXIOS, URL_SEARCH_REPOSITORY } from "../api/Constant";
 
 
 type RepositoriesList = {

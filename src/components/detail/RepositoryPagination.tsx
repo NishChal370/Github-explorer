@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { useSearchParams } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
+import { GetUrlParamValue } from '../../helper/getUrlParamValue';
 
 
 const MAX_MOBILE_WIDTH = 640;
@@ -16,10 +16,10 @@ interface RepositoryPaginationProps{
 
 
 function RepositoryPagination({pageChangeButtonHandler, repoPerPage,  currentPage, pageChangeButtonHandlerMobile, changePerPageRepoHandler}: RepositoryPaginationProps) {
-      const [searchParams, setSetSearchParams] = useSearchParams();
+      const { urlPageNumberValue } = GetUrlParamValue();
       const { totalPage } = useAppSelector(state => state.repositories);
 
-      const [pageInput, setPageInput] = useState<number>((parseInt(searchParams.get('page')!).toString() === 'NaN') ?1 :parseInt(searchParams.get('page')!) );
+      const [pageInput, setPageInput] = useState<number>(urlPageNumberValue);
 
       const pageInputChangeHandler =({target}: React.ChangeEvent<HTMLInputElement>): void=>{
             setPageInput(parseInt(target.value));
