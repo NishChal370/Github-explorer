@@ -85,10 +85,7 @@ npm start
 
 
 ***
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
+Thanks [Proshore Nepal Pvt. Ltd](https://proshore.eu/) for assigning the project. :raised_hands:
 
 ***
-Thanks [Proshore Nepal Pvt. Ltd](https://proshore.eu/) for assigning the project. :raised_hands:
+To learn React, check out the [React documentation](https://reactjs.org/).
