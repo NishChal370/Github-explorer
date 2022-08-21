@@ -1,24 +1,62 @@
-import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { RepositoryCard } from "../components"
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchRepositories } from "../features/repositorySlice";
+import { RepositoryPagination, RepositoryCard } from "../components";
+
 
 
 function Home() {
       const dispatch = useAppDispatch();
+      const [searchParams, setSetSearchParams] = useSearchParams();
       const { loading, error, repositories } = useAppSelector(state => state.repositories);
       const [filterValue, setFilterValue] = useState<string>('bestMatch');
+      const [currentPage, setCurrentPage] = useState<number>((parseInt(searchParams.get('page')!).toString() === 'NaN') ?0 :parseInt(searchParams.get('page')!)-1 )
 
-      const filterSubmitHandler= ({ currentTarget }:React.FormEvent<HTMLSelectElement>)=>{
-
+      const filterSubmitHandler= ({ currentTarget }:React.FormEvent<HTMLSelectElement>): void=>{
             setFilterValue(currentTarget.value);
       }
 
+      const pageChangeButtonHandler = (event: any): void=>{
+            setCurrentPage(event.selected);
+      }
 
+      // for pagination button of mobile screen (max 640)
+      const pageChangeButtonHandlerMobile= ({type, pageNumber}:{type?: string, pageNumber?: number}) : void=>{
+            switch (type) {
+                  case 'previous':
+                        console.log(currentPage);
+                        if(currentPage>0){
+                              setCurrentPage((previousPage)=> previousPage-1)
+                        }
+                        break;
+
+                  case 'next':
+                        if(currentPage<100){
+                              setCurrentPage((previousPage)=> previousPage+1)
+                        }
+                        break;
+
+                  default:
+                        if (pageNumber === undefined) break
+
+                        if(pageNumber>=0 && pageNumber<100){
+                              setCurrentPage(pageNumber)
+                        }
+                        break;
+            }
+      }
+
+      
       useEffect(()=>{
-            dispatch(fetchRepositories({sort: filterValue}));
-      },[filterValue]);
+            setSetSearchParams({
+                  sort: filterValue.toString(),
+                  page: (currentPage+1).toString(),
+            });
+
+            dispatch(fetchRepositories({sort: filterValue, pageNumber:(currentPage+1)}));
+      },[currentPage, filterValue])
 
       return (
             <div className="home__wrapper flex flex-col py-4 px-4 mt-[2%] 
@@ -71,6 +109,14 @@ function Home() {
                               )
                               :     null}
                   </main>
+
+                  <footer className="flex justify-center mt-[2rem] px-0">
+                        <RepositoryPagination
+                              pageChangeButtonHandler={pageChangeButtonHandler}
+                              pageChangeButtonHandlerMobile={pageChangeButtonHandlerMobile}
+                              currentPage={currentPage}
+                        />
+                  </footer>
             </div>
       )
 }
