@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { AXIOS, URL_OWNER_REPOSITORY } from "../api/Constent";
 
 type UserRepository = {
       [key: string]: any
@@ -25,8 +26,8 @@ const initialState: InitialState = {
 export const fetchUserRepository = createAsyncThunk(
       '/fetchUserRepository',
       ({owner='', repository=''}:FetchUserRepository)=>{
-            return axios
-                  .get(`https://api.github.com/repos/${owner}/${repository}`)
+            return AXIOS
+                  .get(URL_OWNER_REPOSITORY+`${owner}/${repository}`)
                   .then(({data})=> data )
       }
 )

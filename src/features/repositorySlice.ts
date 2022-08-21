@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { AXIOS, URL_SEARCH_REPOSITORY } from "../api/Constent";
 import { getTotalPage } from "../utils/getTotalPage";
 
 
@@ -67,8 +68,8 @@ export const fetchRepositories = createAsyncThunk(
 
             searchedRepository = (searchedRepository === '') ?SEARCH_DEFAULT_VALUE :searchedRepository;
 
-            return axios
-                  .get(`https://api.github.com/search/repositories?q=${searchedRepository}&page=${pageNumber}&per_page=${repoPerPage}&sort=${SORT_REPOSITORY[sort].sort}&order=${SORT_REPOSITORY[sort].order}`)
+            return AXIOS
+                  .get(URL_SEARCH_REPOSITORY+`?q=${searchedRepository}&page=${pageNumber}&per_page=${repoPerPage}&sort=${SORT_REPOSITORY[sort].sort}&order=${SORT_REPOSITORY[sort].order}`)
                   .then(({data, headers})=>{                     
                         return {items: data.items, totalPage: getTotalPage(headers['link'])}
                   })
