@@ -3,6 +3,7 @@ import { GithubLogoIcon } from "../../assets";
 import { useAppDispatch } from "../../app/hooks";
 import { fetchRepositories } from "../../features/repositorySlice";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { GetUrlParamValue } from "../../helper/getUrlParamValue";
 
 
 function Header() {
@@ -10,7 +11,8 @@ function Header() {
       const navigate = useNavigate();
       const dispatch = useAppDispatch();
       const [searchParams, setSetSearchParams] = useSearchParams();
-      const [searchedRepository, setSearchedRepository] = useState<string>((searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!);
+      const { urlSortValue, urlPerPageValue, urlRepoValue, urlPageNumberValue } = GetUrlParamValue();
+      const [searchedRepository, setSearchedRepository] = useState<string>(urlRepoValue);
 
       const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void=>{
             const { value } = event.target;
@@ -24,17 +26,17 @@ function Header() {
 
             setSetSearchParams({
                   q: searchedRepository,
-                  sort: (searchParams.get('sort') === undefined)? 'bestMatch': searchParams.get('sort')!,
-                  repoPerPage: (searchParams.get('repoPerPage') === undefined)? '10': searchParams.get('repoPerPage')!,
-                  page:  (searchParams.get('page') === undefined)? '1': searchParams.get('page')!,
+                  sort: urlSortValue,
+                  repoPerPage: urlPerPageValue,
+                  page:  urlPageNumberValue.toString(),
             });
 
 
             dispatch(fetchRepositories({
                   searchedRepository,
-                  sort: (searchParams.get('sort') === undefined)? 'bestMatch': searchParams.get('sort')!,
-                  repoPerPage: (searchParams.get('repoPerPage') === undefined)? '10': searchParams.get('repoPerPage')!,
-                  pageNumber: (parseInt(searchParams.get('page')!).toString() === 'NaN') ?1 :parseInt(searchParams.get('page')!)
+                  sort: urlSortValue,
+                  repoPerPage: urlPerPageValue,
+                  pageNumber: urlPageNumberValue
             }));
       }
 

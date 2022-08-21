@@ -4,16 +4,19 @@ import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchRepositories } from "../features/repositorySlice";
 import { RepositoryPagination, RepositoryCard } from "../components";
+import { GetUrlParamValue } from "../helper/getUrlParamValue";
+import { ErrorMessage, Loading } from "../components/common";
 
 
 
 function Home() {
       const dispatch = useAppDispatch();
       const [searchParams, setSetSearchParams] = useSearchParams();
+      const { urlSortValue, urlPerPageValue, urlRepoValue, urlPageNumberValue } = GetUrlParamValue();
       const { loading, error, repositories, totalPage } = useAppSelector(state => state.repositories);
-      const [filterValue, setFilterValue] = useState<string>((searchParams.get('sort') === undefined || searchParams.get('sort') === null)? 'bestMatch': searchParams.get('sort')!);
-      const [repoPerPage, setRepoPerPage] = useState<string>((searchParams.get('repoPerPage') === undefined || searchParams.get('repoPerPage') === null)? '10': searchParams.get('repoPerPage')!.toString());
-      const [currentPage, setCurrentPage] = useState<number>((parseInt(searchParams.get('page')!).toString() === 'NaN') ?0 :parseInt(searchParams.get('page')!)-1 )
+      const [filterValue, setFilterValue] = useState<string>(urlSortValue);
+      const [repoPerPage, setRepoPerPage] = useState<string>(urlPerPageValue);
+      const [currentPage, setCurrentPage] = useState<number>(urlPageNumberValue-1 )
 
       const filterSubmitHandler= ({ currentTarget }:React.FormEvent<HTMLSelectElement>): void=>{
             setFilterValue(currentTarget.value);
@@ -60,14 +63,14 @@ function Home() {
 
       useEffect(()=>{
             setSetSearchParams({
-                  q: (searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!,
+                  q: urlRepoValue,
                   sort: filterValue.toString(),
                   repoPerPage: repoPerPage.toString(),
                   page: (currentPage+1).toString(),
             });
 
             dispatch(fetchRepositories({
-                  searchedRepository: (searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!,
+                  searchedRepository: urlRepoValue,
                   sort: filterValue, 
                   repoPerPage: repoPerPage,
                   pageNumber:(currentPage+1),
@@ -107,9 +110,10 @@ function Home() {
                   </header>
 
                   <main className="repository__container">
-                        {loading && <div>Loading...</div>}
 
-                        {!loading && error ? <div>Error: {error}</div> : null}
+                        {loading && <Loading/>}
+
+                        {!loading && error ? <ErrorMessage message={error}/> : null}
 
                         {!loading && repositories.length
                               ? repositories.map(

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { BranchIcon, IssueIcon } from '../assets';
 import { MainText, StatusIconText } from '../components';
+import { ErrorMessage, Loading } from '../components/common';
 import Avatar from '../components/detail/Avatar';
 import { fetchUserRepository } from '../features/userRepositorySlice';
 
@@ -15,9 +16,9 @@ function Detail() {
             dispatch(fetchUserRepository({owner , repository})) 
       },[])
 
-      if(loading ) return <h1>Loading...</h1>
+      if(loading ) return <Loading/>
 
-      if (!loading && error ) return <div>Error: {error}</div> 
+      if (!loading && error ) return <ErrorMessage message={error}/>
 
       if (!loading && Object.keys(userRepository).length) return (
             <div className='detail__container py-4  px-4 flex flex-col gap-4  justify-center mt-[2rem] 
