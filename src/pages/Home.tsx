@@ -51,11 +51,16 @@ function Home() {
       
       useEffect(()=>{
             setSetSearchParams({
+                  q: (searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!,
                   sort: filterValue.toString(),
                   page: (currentPage+1).toString(),
             });
 
-            dispatch(fetchRepositories({sort: filterValue, pageNumber:(currentPage+1)}));
+            dispatch(fetchRepositories({
+                  searchedRepository: (searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!,
+                  sort: filterValue, 
+                  pageNumber:(currentPage+1)
+            }));
       },[currentPage, filterValue])
 
       return (

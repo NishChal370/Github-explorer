@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GithubLogoIcon } from "../../assets";
 import { useAppDispatch } from "../../app/hooks";
 import { fetchRepositories } from "../../features/repositorySlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 
 function Header() {
       const location = useLocation();
       const navigate = useNavigate();
       const dispatch = useAppDispatch();
+      const [searchParams, setSetSearchParams] = useSearchParams();
       const [searchedRepository, setSearchedRepository] = useState<string>('');
 
       const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void=>{
@@ -19,13 +20,28 @@ function Header() {
 
       const inputSubmitHandler = (event: React.FormEvent<HTMLFormElement>): void=>{
             event.preventDefault();
-            
-            dispatch(fetchRepositories({searchedRepository}));
+
+            setSetSearchParams({
+                  q: searchedRepository,
+                  sort: (searchParams.get('sort') === undefined)? 'bestMatch': searchParams.get('sort')!,
+                  page:  (searchParams.get('page') === undefined)? '1': searchParams.get('page')!,
+            });
+
+
+            dispatch(fetchRepositories({
+                  searchedRepository,
+                  sort: (searchParams.get('sort') === undefined)? 'bestMatch': searchParams.get('sort')!,
+                  pageNumber: (parseInt(searchParams.get('page')!).toString() === 'NaN') ?1 :parseInt(searchParams.get('page')!)
+            }));
       }
 
       const navigateToHome= (): void=>{
             navigate('/');
       }
+
+      useEffect(()=>{
+            setSearchedRepository((searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!)
+      },[])
 
       return (
             <header className="header__container bg-[#161b22] text-sm border-b-[0.1rem] border-[#30363d] w-full
