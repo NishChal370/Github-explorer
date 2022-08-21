@@ -24,18 +24,26 @@ function RepositoryCard({fullName, description, star, watched, forks, updatedDat
       
 
       return (
-            <div className="repository__card  flex flex-col gap-2 border-t-[0.1rem] border-[#30363d] py-5 mt-3 ">
+            <div className="repository__card  flex flex-col gap-2 border-t-[0.1rem] border-[#30363d] py-5 mt-3  w-full ">
                   <header className="flex gap-2 align-middle">
                         <img className="w-3 h-4 white--image self-center"
                               src={GithubRepoIcon} alt="repo-icon" 
                         />
                         
-                        <h1 className="text-link--blue hover:cursor-pointer" onClick={()=>navigateDetailPage(fullName)}>{fullName}</h1>
+                        <h1 className="text-link--blue w-[16rem] truncate hover:cursor-pointer 
+                              sm:w-[100%]" 
+                              onClick={()=>navigateDetailPage(fullName)}
+                        >{fullName}</h1>
                   </header>
 
                   <article className="text-[0.8rem] pl-5 flex flex-col gap-3 tracking-wider">
-                        <h5>{description}</h5>
-                        
+                        <h5 className="w-[10rem] truncate 
+                                    extra-sm:w-[20rem] 
+                                    md-sm:w-[24rem]
+                                    sm:w-[30rem]
+                                    lg:w-full"
+                        >{description}</h5>
+
                         <div className="flex flex-col sm:flex-row 
                               sm:gap-2"
                         >

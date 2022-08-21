@@ -10,59 +10,72 @@ import { RepositoryPagination, RepositoryCard } from "../components";
 function Home() {
       const dispatch = useAppDispatch();
       const [searchParams, setSetSearchParams] = useSearchParams();
-      const { loading, error, repositories } = useAppSelector(state => state.repositories);
-      const [filterValue, setFilterValue] = useState<string>('bestMatch');
+      const { loading, error, repositories, totalPage } = useAppSelector(state => state.repositories);
+      const [filterValue, setFilterValue] = useState<string>((searchParams.get('sort') === undefined || searchParams.get('sort') === null)? 'bestMatch': searchParams.get('sort')!);
+      const [repoPerPage, setRepoPerPage] = useState<string>((searchParams.get('repoPerPage') === undefined || searchParams.get('repoPerPage') === null)? '10': searchParams.get('repoPerPage')!.toString());
       const [currentPage, setCurrentPage] = useState<number>((parseInt(searchParams.get('page')!).toString() === 'NaN') ?0 :parseInt(searchParams.get('page')!)-1 )
 
       const filterSubmitHandler= ({ currentTarget }:React.FormEvent<HTMLSelectElement>): void=>{
             setFilterValue(currentTarget.value);
       }
 
+
       const pageChangeButtonHandler = (event: any): void=>{
             setCurrentPage(event.selected);
       }
+
 
       // for pagination button of mobile screen (max 640)
       const pageChangeButtonHandlerMobile= ({type, pageNumber}:{type?: string, pageNumber?: number}) : void=>{
             switch (type) {
                   case 'previous':
-                        console.log(currentPage);
                         if(currentPage>0){
-                              setCurrentPage((previousPage)=> previousPage-1)
+                              setCurrentPage((previousPage)=> previousPage-1);
                         }
                         break;
 
                   case 'next':
-                        if(currentPage<100){
-                              setCurrentPage((previousPage)=> previousPage+1)
+                        if(currentPage<totalPage){
+                              setCurrentPage((previousPage)=> previousPage+1);
                         }
                         break;
 
                   default:
                         if (pageNumber === undefined) break
 
-                        if(pageNumber>=0 && pageNumber<100){
-                              setCurrentPage(pageNumber)
+                        if(pageNumber>=0 && pageNumber<totalPage){
+                              setCurrentPage(pageNumber);
                         }
                         break;
             }
       }
 
+
+      const changePerPageRepoHandler = ({ currentTarget }:React.FormEvent<HTMLSelectElement>): void=>{
+            setCurrentPage(0);
+            setRepoPerPage(currentTarget.value);
+      }
+
       
+
       useEffect(()=>{
             setSetSearchParams({
                   q: (searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!,
                   sort: filterValue.toString(),
+                  repoPerPage: repoPerPage.toString(),
                   page: (currentPage+1).toString(),
             });
 
             dispatch(fetchRepositories({
                   searchedRepository: (searchParams.get('q') === undefined || searchParams.get('q')! === 'null')? 'a': searchParams.get('q')!,
                   sort: filterValue, 
-                  pageNumber:(currentPage+1)
+                  repoPerPage: repoPerPage,
+                  pageNumber:(currentPage+1),
             }));
-      },[currentPage, filterValue])
+      },[repoPerPage, currentPage, filterValue])
 
+
+      
       return (
             <div className="home__wrapper flex flex-col py-4 px-4 mt-[2%] 
                         sm:py-20 sm:w-[60rem]"
@@ -120,6 +133,8 @@ function Home() {
                               pageChangeButtonHandler={pageChangeButtonHandler}
                               pageChangeButtonHandlerMobile={pageChangeButtonHandlerMobile}
                               currentPage={currentPage}
+                              repoPerPage={repoPerPage}
+                              changePerPageRepoHandler={changePerPageRepoHandler}
                         />
                   </footer>
             </div>

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getTotalPage } from "../utils/getTotalPage";
 
 
 type RepositoriesList = {
@@ -11,9 +12,15 @@ type RepositoriesList = {
       updated_at: string
 }[]
 
+type Repositories = {
+      items: RepositoriesList,
+      totalPage: number,
+}
+
 type InitialState = {
       loading: boolean
       repositories: RepositoriesList
+      totalPage: number
       error: string
 }
 
@@ -21,7 +28,8 @@ type InitialState = {
 type FetchRepositoriesProps = {
       searchedRepository?: string
       pageNumber?: number,
-      sort?: string, 
+      sort?: string,
+      repoPerPage?: string ,
 }
 
 type Sort = {
@@ -49,20 +57,21 @@ const SORT_REPOSITORY: SortRepository = {
 const initialState:InitialState = {
       loading: false,
       repositories: [],
+      totalPage: 0,
       error: '',
 }
 
 export const fetchRepositories = createAsyncThunk(
       '/fetchRepositories',
-      ({searchedRepository=SEARCH_DEFAULT_VALUE, pageNumber=1, sort='bestMatch'}: FetchRepositoriesProps = {})=>{
+      ({searchedRepository=SEARCH_DEFAULT_VALUE, pageNumber=1, sort='bestMatch', repoPerPage='10'}: FetchRepositoriesProps = {})=>{
 
-            searchedRepository = (searchedRepository === '') ?SEARCH_DEFAULT_VALUE :searchedRepository
+            searchedRepository = (searchedRepository === '') ?SEARCH_DEFAULT_VALUE :searchedRepository;
 
-            console.log(`https://api.github.com/search/repositories?q=${searchedRepository}&page=${pageNumber}&per_page=10&sort=${SORT_REPOSITORY[sort].sort}&order=${SORT_REPOSITORY[sort].order}`);
-            
             return axios
-                  .get(`https://api.github.com/search/repositories?q=${searchedRepository}&page=${pageNumber}&per_page=10&sort=${SORT_REPOSITORY[sort].sort}&order=${SORT_REPOSITORY[sort].order}`)
-                  .then(({data})=> data.items)
+                  .get(`https://api.github.com/search/repositories?q=${searchedRepository}&page=${pageNumber}&per_page=${repoPerPage}&sort=${SORT_REPOSITORY[sort].sort}&order=${SORT_REPOSITORY[sort].order}`)
+                  .then(({data, headers})=>{                     
+                        return {items: data.items, totalPage: getTotalPage(headers['link'])}
+                  })
       }
 )
 
@@ -75,9 +84,10 @@ const repositorySlice = createSlice({
             builder.addCase(fetchRepositories.pending, (state)=>{
                   state.loading = true
             })
-            builder.addCase(fetchRepositories.fulfilled, (state, action: PayloadAction<RepositoriesList>)=>{
+            builder.addCase(fetchRepositories.fulfilled, (state, action: PayloadAction<Repositories>)=>{
                   state.loading = false
-                  state.repositories = action.payload
+                  state.repositories = action.payload.items
+                  state.totalPage = action.payload.totalPage
                   state.error = ''
             })
             builder.addCase(fetchRepositories.rejected, (state, action)=>{

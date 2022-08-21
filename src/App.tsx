@@ -13,7 +13,7 @@ function App() {
                         <Routes>
                               <Route path="/detail/:owner/:repository" element={<Detail/>} />
                               <Route path="/" element={<Home/>}/>
-                              <Route path="*" element={<Navigate to="/?q=a&sort=bestMatch&page=1" replace /> }/>
+                              <Route path="*" element={<Navigate to="/" replace /> }/>
                         </Routes>
                   </div>
             </div>
