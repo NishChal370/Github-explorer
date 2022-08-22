@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { useAppSelector } from '../../app/hooks';
-import { GetUrlParamValue } from '../../helper/getUrlParamValue';
+import { useAppSelector } from '../../../app/hooks';
+import { GetUrlParamValue } from '../../../helper/getUrlParamValue';
 
 
 const MAX_MOBILE_WIDTH = 640;
@@ -55,7 +55,7 @@ function RepositoryPagination({pageChangeButtonHandler, repoPerPage,  currentPag
                               <button className='w-[4rem] py-[0.1rem]  border-[0.1rem] rounded border-[#13171f] border-[rgba(31,111,235,0.3)]'
                                     type='submit'
                               >Go to</button>
-
+                              
                               <select name="per-page-select" id="select_per_page" value={repoPerPage} onChange={(e)=>{changePerPageRepoHandler(e); setPageInput(1)}}
                                     className='w-[7rem] border-[0.1rem] rounded border-[#13171f] border-[rgba(31,111,235,0.3)] bg-inherit focus:outline-none focus:shadow-outline focus:bg-[#484f584f]'
                               >

@@ -70,7 +70,7 @@ function Header() {
                                                       md:w-60"
                                                 placeholder="Search repository"
                                                 type="text"  
-                                                value={searchedRepository}
+                                                value={(searchedRepository === null)? '': searchedRepository}
                                                 onChange={inputChangeHandler}
                                           />
                                     </form>
