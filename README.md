@@ -10,11 +10,19 @@
 
 ## Features
 
-- [x] Search public repository 
-- [x] Filter searched repository [options](#Repository_Sort)
-- [x] Home page with pagination
-- [x] Change number of data in page [options](#Per_Page_Option)
-- [x] View repository detail containing Repository Avatar, Total Issue, Default Branch, Owner Name, Repository Name
+The application has two pages, a Home page, and a Detail Page
+
+:point_right: **On the Home Page users can**
+- [x] Search public repositories
+- [x] Filter searched repositories [options](#Repository_Sort)
+- [x] Have pagination.
+- [x] Change number of data per page [options](#Per_Page_Option)
+- [x] Get the searched repositories containing detail like Owner Name, Repository Name, Total stars, Total forks, Watched count, last updated date, and short description.
+
+:point_right: **On the Detail Page users can**
+- [x] View selected repository detail like Owner Name, Repository Name, Avatar, Total Issue, and Default Branch.
+- [x] The user will be direct to the owner's GitHub page if clicked on the owner name or repository name.
+
 
 ## Used Stack
 
@@ -81,6 +89,18 @@ npm start
 :small_red_triangle: 10 per page
 :small_red_triangle: 25 per page
 :small_red_triangle: 50 per page
+
+
+
+## Package uses
+
+***axios :*** It is used to send asynchronous HTTP requests to REST endpoints. This library is very useful to perform CRUD operations. This popular library is used to communicate with the backend. Axios supports the Promise API, native to JS ES6.
+
+***react-router-dom :*** React Router is used to define multiple routes in the application. When a user types a specific URL into the browser, and if this URL path matches any 'route' inside the router file, the user will be redirected to that particular route.
+
+***react-paginate :*** It is used to allow users can easily switch between pages across a website or app. With the help of this component, a user can select a specific page from a range of pages.
+
+***nanoid :*** A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
 
 
 
