@@ -79,7 +79,11 @@ export const fetchRepositories = createAsyncThunk(
 const repositorySlice = createSlice({
       name: 'repositories',
       initialState,
-      reducers: {},
+      reducers: {
+            clearRepositories: (state)=>{
+                  state.repositories = []
+            },
+      },
       extraReducers: builder=> {
             builder.addCase(fetchRepositories.pending, (state)=>{
                   state.loading = true
@@ -99,3 +103,4 @@ const repositorySlice = createSlice({
 })
 
 export default repositorySlice.reducer
+export const { clearRepositories } = repositorySlice.actions;

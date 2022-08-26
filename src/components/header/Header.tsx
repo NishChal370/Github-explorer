@@ -3,7 +3,7 @@ import { useState } from "react";
 import { GithubLogoIcon } from "../../assets";
 import { useAppDispatch } from "../../app/hooks";
 import { GetUrlParamValue } from "../../helper/getUrlParamValue";
-import { fetchRepositories } from "../../features/repositorySlice";
+import { clearRepositories, fetchRepositories } from "../../features/repositorySlice";
 
 
 function Header() {
@@ -24,6 +24,8 @@ function Header() {
       const inputSubmitHandler = (event: React.FormEvent<HTMLFormElement>): void=>{
             event.preventDefault();
 
+            if (searchedRepository === null ) return;
+            
             setSetSearchParams({
                   q: searchedRepository,
                   sort: urlSortValue,
@@ -31,6 +33,11 @@ function Header() {
                   page:  urlPageNumberValue.toString(),
             });
 
+            if (searchedRepository === '' ){ 
+                  dispatch(clearRepositories());
+                  
+                  return;
+            }
 
             dispatch(fetchRepositories({
                   searchedRepository,

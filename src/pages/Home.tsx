@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { ErrorMessage, Loading } from "../components/common";
+import { EmptyMessage, ErrorMessage, Loading } from "../components/common";
 import { GetUrlParamValue } from "../helper/getUrlParamValue";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchRepositories } from "../features/repositorySlice";
@@ -62,6 +62,8 @@ function Home() {
       
 
       useEffect(()=>{
+            if ( urlRepoValue === null || urlRepoValue ==='' ) return;
+
             setSetSearchParams({
                   q: urlRepoValue,
                   sort: filterValue.toString(),
@@ -78,7 +80,6 @@ function Home() {
       },[repoPerPage, currentPage, filterValue])
 
 
-      
       return (
             <div className="home__wrapper flex flex-col py-4 px-4 mt-[2%] 
                         sm:py-20 sm:w-[60rem]"
@@ -117,7 +118,7 @@ function Home() {
 
                         {!loading && repositories.length
                               ? repositories.map(
-                                    ({full_name, description, stargazers_count, watchers_count, forks_count, updated_at})=>{return(
+                                    ({full_name, description, stargazers_count, watchers_count, forks_count, updated_at})=>{ return (
                                           <RepositoryCard 
                                                 key={nanoid()}
                                                 fullName={full_name}
@@ -129,7 +130,7 @@ function Home() {
                                           />
                                     )}
                               )
-                              :     null}
+                              :     <EmptyMessage/>}
                   </main>
 
                   <footer className="flex justify-center mt-[2rem] px-0">

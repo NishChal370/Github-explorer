@@ -19,7 +19,7 @@ export const GetUrlParamValue = (): GetUrlParamValueReturn=>{
                                     : searchParams.get('sort')!
 
       const urlRepoValue: string = (searchParams.get('q') === undefined || searchParams.get('q')! === 'null')
-                                    ? 'a'
+                                    ? 'null'
                                     : searchParams.get('q')!
       
       const urlPageNumberValue: number = (parseInt(searchParams.get('page')!).toString() === 'NaN') 
