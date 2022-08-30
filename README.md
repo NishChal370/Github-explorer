@@ -105,7 +105,4 @@ npm start
 
 
 ***
-Thanks [Proshore Nepal Pvt. Ltd](https://proshore.eu/) for assigning the project. :raised_hands:
-
-***
 To learn React, check out the [React documentation](https://reactjs.org/).
